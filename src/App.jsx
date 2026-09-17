@@ -14,7 +14,7 @@ const App = () => {
 // Agar nahi (null hai) → [] (khali array) return karo
     return saved ? JSON.parse(saved) : [];
   });
-
+// useEffect use kra localstroage me task save krne jisme hmne task ke json ko stringify krke save kra kyuki usme string hi save hoti aur [task] ye use kra ki ye tb tb chle fn jb task update hua ho
   useEffect(()=>{
     localStorage.setItem("task",JSON.stringify(task));
   },[task])
@@ -22,10 +22,14 @@ const App = () => {
   let form_submit = (e)=>{
     e.preventDefault();
     let new_task_text = e.target.taskInput.value;
+//     purane sab tasks (...task se copy) + naya task object end mein add
+//  naya poora array setTask ko diya, state update ho gayi
     setTask([...task, {text:new_task_text}]);
     e.target.reset();
   }
-
+  let delete_task =(index)=>{
+    setTask(task.filter((_, i) => i !== index));
+  }
 
   return (
    <>
@@ -43,13 +47,15 @@ const App = () => {
       </form>
       
     </div>
-    <div className=" w- text-center  ">
+    <div className="w-[100%]  display flex-col flex justify-center items-center gap-3  ">
       <h3 className='text-red-500'>Task List</h3>
-      <ul className='bg-blue-500'>
+      <ul className='bg-blue-500 w-[100%]'>
           {task.map((task,index)=>(
-            <li >{index+1}.  {task.text}</li>
+            <li className='flex justify-between gap-50 items-center' >{index+1}.  {task.text} <button  onClick={()=>delete_task(index)}className='bg-red-500 hover:bg-red-700 text-white font-bold px-20 py-10 '>Delete</button></li>
+            
           ))}
       </ul>
+     
     </div>
 
    </>
