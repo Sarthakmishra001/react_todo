@@ -17,7 +17,7 @@ const App = () => {
 
   return (
     <>
-      <h1>Todo List</h1>
+      <h1 className="text-3xl font-bold underline text-center">Todo List</h1>
       <TaskForm onAddTask={add_task} />
       <TaskList tasks={task} onDelete={delete_task} />
     </>
