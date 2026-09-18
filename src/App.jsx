@@ -7,7 +7,7 @@ const App = () => {
     const saved = localStorage.getItem("task");
     return saved ? JSON.parse(saved) : [];
   });
-
+  
   useEffect(() => {
     localStorage.setItem("task", JSON.stringify(task));
   }, [task]);
